@@ -15,6 +15,21 @@ steps:
 #   # Set logs bucket behavior to create a user-owned logs bucket in the same region as the build project
 #   logging: 'neethu-log'
 
+ # Deploy the container to Google Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'devops-lab2'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/swift-rite-413700/neethu-100932992/devops-lab2:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated' # Use '--no-allow-unauthenticated' if you don't want to allow unauthenticated access
+
 images:
   - 'us-central1-docker.pkg.dev/swift-rite-413700/neethu-100932992/devops-lab2:$COMMIT_SHA'
  
